@@ -1,0 +1,7 @@
+INFILE=$1
+OUTFILE="csv"
+TEMPFILE="temp"
+touch $OUTFILE
+touch $TEMPFILE
+awk NF $INFILE>$TEMPFILE
+cat $TEMPFILE 
