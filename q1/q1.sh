@@ -3,23 +3,18 @@ X=0
 Y=0
 OUTFILE=$(echo "$INFILE" | sed 's/inp/out/g')
 touch $OUTFILE
-echo "" > $OUTFILE
-compute(){
-	if [[ $1 == "U" ]]; then
-		Y=$((Y+$2))
-	elif [[ $1 == "D" ]]; then
-		Y=$((Y-$2))
-	elif [[ $1 == "L" ]]; then
-		X=$((X-$2))
-	elif [[ $1 == "R" ]]; then
-		X=$((X+$2))
-	fi
+sed 's/!/\n/g' $INFILE | awk -F '-' -v X="$X" -v Y="$Y" '{
+	if($1=="U"){
+		Y=Y+$2
+	}
+else if($1=="D"){
+	Y=Y-$2
 }
-
-for line in $(sed 's/!/\n/g' $INFILE)
-do
-	IFS='-' read -a arr <<< "$line"
-	compute ${arr[0]} ${arr[1]}
-	printf "%c\t(%d,%d)\n" "${arr[0]}" "$X" "$Y" >> $OUTFILE
-done
-printf "Final Position: (%d,%d)\n" "$X" "$Y" >> $OUTFILE
+else if($1=="L"){
+	X=X-$2
+}
+else{
+	X=X+$2
+}
+printf("%c\t(%d,%d)\n",$1,X,Y)
+} END{printf("Final Position: (%d,%d)\n",X,Y)}' > $OUTFILE
