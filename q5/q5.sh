@@ -1,32 +1,24 @@
 INFILE=$1
 OUTFILE="csv"
+X=1
+Y=0
+Z=0
 #TEMPFILE="temp"
 touch $OUTFILE
 #touch $TEMPFILE
 #awk NF $INFILE
-awk NF $INFILE | awk 'BEGIN{printf("Name||Projects||Drive Video Link\n")}{
-	if(NF<=2){
-		if($0 ~ /https:/){
-			printf("||%s\n",$0)
+awk NF $INFILE | awk -v X="$X" 'BEGIN{printf("Name||Projects||Drive Video Link\n")}{
+	if(X==1){
+		for(i=1;i<NF;i++){
+			printf("%s ",$i)
 		}
-	else if($0 ~ /None/ || $0 ~ /No/ || $0 ~ /NA/){
-			printf("%s",$0)
-		}
-		else if($1 ~ /^[A-Z][A-Za-z]*/ && $2 ~ /[A-Za-z]*/ && $3 ~ /[A-Za-z]*/){
-			printf("%s||",$0)
-		}
-		else{
-			printf("%s",$0)
-		}
+		printf("%s||",$NF)
+		X=0
 	}
-	else if(NF==3){
-		if($0 ~ /[A-Z][A-Za-z]* [A-Z][A-Za-z]* [A-Za-z][A-Za-z]*/){
-			printf("%s||",$0)
-		}
-		else{
-			printf("%s",$0);
-		}
-	} 
+	else if($0 ~ /^https:/){
+		printf("||%s\n",$0)
+		X=1
+	}
 	else{
 		printf("%s",$0)
 	}
