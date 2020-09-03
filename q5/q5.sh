@@ -7,6 +7,7 @@ Z=0
 touch $OUTFILE
 #touch $TEMPFILE
 #awk NF $INFILE
+sed -i 's/ *//g' $INFILE
 awk NF $INFILE | awk -v X="$X" 'BEGIN{printf("Name||Projects||Drive Video Link\n")}{
 	if(X==1){
 		for(i=1;i<NF;i++){
@@ -20,7 +21,7 @@ awk NF $INFILE | awk -v X="$X" 'BEGIN{printf("Name||Projects||Drive Video Link\n
 		X=1
 	}
 	else{
-		printf("%s",$0)
+		printf("%s ",$0)
 	}
 }' > $OUTFILE
 #sed -i 's/. "/."/g' $OUTFILE
