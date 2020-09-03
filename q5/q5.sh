@@ -6,9 +6,8 @@ Z=0
 #TEMPFILE="temp"
 touch $OUTFILE
 #touch $TEMPFILE
-#awk NF $INFILE
-sed -i 's/ *//g' $INFILE
-awk NF $INFILE | awk -v X="$X" 'BEGIN{printf("Name||Projects||Drive Video Link\n")}{
+#awk NF $INFILE | sed 's/ *$//g' | sed 's/^ *//g'
+awk NF $INFILE | sed 's/ *$//g' | sed 's/^ *//g' | awk -v X="$X" 'BEGIN{printf("Name||Projects||Drive Video Link\n")}{
 	if(X==1){
 		for(i=1;i<NF;i++){
 			printf("%s ",$i)
