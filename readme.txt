@@ -1,4 +1,4 @@
-ayushsharma q1
+Ayush Sharma (203050029 - ayushsharma) - q1,q5
 Vikrant Sharma (203050035 - vikrantsharma) - q4,q6
 
 References
