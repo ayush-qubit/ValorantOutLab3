@@ -1,6 +1,6 @@
-Ayush Sharma (203050029 - ayushsharma) - q1,q5
-Vikrant Sharma (203050035 - vikrantsharma) - q4,q6
-Utkarsh Indolia (203050111 - utkarshindolia) - q3
+Ayush Sharma (203050029 / ayushsharma) (Github: ayush-qubit) - q1,q5
+Vikrant Sharma (203050035 / vikrantsharma) (Github: Vikrant7981) - q4,q6
+Utkarsh Indolia (203050111 / utkarshindolia) (Github: utkarsh92) - q3
 
 References
 https://www.tutorialspoint.com/awk/awk_user_defined_functions.htm
