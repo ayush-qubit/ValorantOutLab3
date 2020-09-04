@@ -1,26 +1,18 @@
-INFILE=$1
-OUTFILE="url"
-sed -i -e 's/https:/ https:/g' $INFILE
-sed -i -e 's/http:/ http:/g' $INFILE
-sed -r -i 's/\(/\(/g;s/\/\)/\/ \)/g' $INFILE
-sed -i -e 's/   */ /g' $INFILE
-sed -i -e 's/\t\t*/ /g' $INFILE
-awk '{
-	for(i=1;i<=NF;i++){
-		if($i ~ /https:\/\/www.cse.iitb.ac.in\/~[a-z][a-z]*/ || $i ~ /http:\/\/www.cse.iitb.ac.in\/~[a-z][a-z]*/){
-			print $i
-		}
-	}
-}' $INFILE | sed 's/.*\(http[A-Za-z]*\)/\1/' > $OUTFILE
-awk '{
-	for(i=1;i<=NF;i++){
-		if($i ~ /^https:\/\/.*/ || $i ~ /^http:\/\/.*/ || $i ~ /.*(.com|.in|.org|.net|.co|.us|.edu|.gov)\/.*/){
-			printf("")
-		}
-		else{
-			printf("%s ",$i)
-		}
-	}
-}' $INFILE > output
-cat output > $INFILE
-rm output
+grep -oE 'http(s?)://www.cse.iitb.ac.in/~[a-z]+ ' $1 > url
+
+#sed -r 's/\t+/ /g; s/ +/ /g' input1 | grep -E 'http(s?)://[^ ]+ '
+
+sed -r 's/\t+/ /g' $1 \
+| sed -r 's/http(s?):\/\/[^ )]+ //g' \
+| sed -r 's/\(http(s?):\/\/[^\)]+\)/( )/g' \
+| sed -r 's/ [^ ]+(\.com|\.in|\.org|\.net|\.co|\.us|\.edu|\.gov)\/[^ ]+ / /g' \
+| sed -r 's/[^\(]+(\.com|\.in|\.org|\.net|\.co|\.us|\.edu|\.gov)\/[^\)]+/ /g' \
+| sed -r 's/ +/ /g' > $1
+
+
+#sed -r 's/\t+/ /g' input1 \
+#| sed -r 's/http(s?):\/\/[^ )]+ //g' \
+#| sed -r 's/ [^ ]+(\.net|\.in)\/[^ ]+ / /g' \
+#| sed -r '[^\(]+(\.com|\.in|\.org|\.net|\.co|\.us|\.edu|\.gov)/[^\)]+'
+
+#sed -ri 's/\t+/ /g; s/ +/ /g; s/http(s?):\/\/[^ ]+ //g' $1
