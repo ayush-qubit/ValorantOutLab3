@@ -6,7 +6,6 @@ sed -r 's/\t+/ /g' $1 \
 | sed -r 's/\(http(s?):\/\/[^\)]+\)/( )/g' \
 | sed -r 's/ [^ ]+(\.com|\.in|\.org|\.net|\.co|\.us|\.edu|\.gov)\/[^ ]+ / /g' \
 | sed -r 's/[^\(]+(\.com|\.in|\.org|\.net|\.co|\.us|\.edu|\.gov)\/[^\)]+/ /g' \
-
 | sed -r 's/ +/ /g' > $1
 
 
